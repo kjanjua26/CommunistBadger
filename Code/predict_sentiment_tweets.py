@@ -10,10 +10,10 @@ from keras.preprocessing import sequence
 import numpy as np
 import re
 
-consumer_key = 'pKnvO75ckS2QAj7mSq8nnlMBv'
-consumer_secret = 'xiZ4835Rp85NZTxMZEMux2PE69pKX9nYHiFogq32yCyoiW3GNE'
-access_token = '709712385246961664-yI4TWDMYDJP0J8ERUgO4KzmKgCzSYnA'
-access_token_secret = 'AX1aHYqzv4xR6KPzfqfCHnaqvrA5A7IsPFi82fMxCjwxM'
+consumer_key = ''
+consumer_secret = ''
+access_token = ''
+access_token_secret = ''
 
 tweets = []
 pos_tweets_lst = []
