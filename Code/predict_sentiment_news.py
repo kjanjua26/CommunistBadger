@@ -10,6 +10,7 @@ import numpy as np
 import re
 import pandas as pd
 import glob
+import matplotlib.pyplot as plt
 
 
 
@@ -59,10 +60,21 @@ class SentimentNews():
                 neg_count += 1
                 self.neg_list.append(self.articles[index])
         assert pos_count + neg_count == len(flat_out)
-        return pos_count, neg_count, len(flat_out)
+        return pos_count, neg_count, len(flat_out), flat_out
+
+    def graph_sentiment(self):
+        _, _, _, sentiments = self.get_sentiment()
+        objects = tuple(x for x in range(20))
+        y_pos = np.arange(20)
+        plt.bar(y_pos, sentiments[:20], align='center', alpha=0.5)
+        plt.xticks(y_pos, objects)
+        plt.ylabel('Sentiment')
+        plt.xlabel('Article Count')
+        plt.title('News Sentiment Graph for {}'.format(self.article_name))
+        plt.savefig('sentiment_results_news_{}.png'.format(self.article_name))
 
     def compute_score(self):
-        pos_count, neg_count, total_count = self.get_sentiment()
+        pos_count, neg_count, total_count, _ = self.get_sentiment()
         pos_percentage = (pos_count / total_count)
         neg_percentage = (neg_count / total_count)
         diff_percentage = (pos_percentage - neg_percentage)
@@ -72,10 +84,9 @@ class SentimentNews():
             pos_percentage *= self.coeff
         return pos_percentage, neg_percentage
 
-
-
 if __name__ == '__main__':
     sentiment = SentimentNews("Google")
+    sentiment.graph_sentiment()
     pos_percentage, neg_percentage = sentiment.compute_score()
     print("Positive Percentage: ", pos_percentage)
     print("Negative Percentaage: ", neg_percentage)
