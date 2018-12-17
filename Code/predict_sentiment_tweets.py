@@ -93,22 +93,11 @@ def graph_sentiment():
 
 def _get_tweet_coefficient():
     total_tweets, negative_tweets, positive_tweets,_ = _get_results()
-    print("Total Tweets: ", total_tweets)
-    print("Total Negative Tweets: ", negative_tweets)
-    print("Total Positive Tweets: ", positive_tweets)
     pos_percentage = (positive_tweets/total_tweets)
     neg_percentage = (negative_tweets/total_tweets)
-    diff_percentage = (pos_percentage - neg_percentage)
-    print("Difference Percentage: ", diff_percentage)
-    print("Positive Percentage: ", pos_percentage)
-    print("Negative Percentage: ", neg_percentage)
     if pos_percentage > neg_percentage:
         neg_percentage *= coeff
     else:
         pos_percentage *= coeff
-    print("Up Positive Percentage: ", pos_percentage)
-    print("Up Negative Percentage: ", neg_percentage)
     graph_sentiment()
-
-if __name__ == '__main__':
-    _get_tweet_coefficient()
+    return pos_percentage, neg_percentage
