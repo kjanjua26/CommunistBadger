@@ -12,8 +12,6 @@ import pandas as pd
 import glob
 import matplotlib.pyplot as plt
 
-
-
 class SentimentNews():
     def __init__(self, article_name):
         self.articles = []
@@ -63,7 +61,7 @@ class SentimentNews():
         return pos_count, neg_count, len(flat_out), flat_out
 
     def graph_sentiment(self):
-        _, _, _, sentiments = self.get_sentiment()
+        pos_count, neg_count, total_count, sentiments = self.get_sentiment()
         objects = tuple(x for x in range(20))
         y_pos = np.arange(20)
         plt.bar(y_pos, sentiments[:20], align='center', alpha=0.5)
@@ -77,8 +75,7 @@ class SentimentNews():
         pos_count, neg_count, total_count, _ = self.get_sentiment()
         pos_percentage = (pos_count / total_count)
         neg_percentage = (neg_count / total_count)
-        diff_percentage = (pos_percentage - neg_percentage)
-        if diff_percentage > 0.10:  # if the diff is less than a certain percentage, then negative is dominant.
+        if pos_percentage > neg_percentage:
             neg_percentage *= self.coeff
         else:
             pos_percentage *= self.coeff
