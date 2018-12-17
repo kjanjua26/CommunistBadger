@@ -7,11 +7,13 @@
 import predict_sentiment_news, predict_sentiment_tweets
 
 class MarketIndex():
-    def __init__(self, article_name):
+    def __init__(self, article_name, tweet_count):
         self.article_name = article_name
+        self.tweet_count = tweet_count
 
     def compute_tweet_index(self):
-        pos_percentage, neg_percentage = predict_sentiment_tweets._get_tweet_coefficient()
+        sentiment = predict_sentiment_tweets.SentimentTweets(self.article_name, self.tweet_count)
+        pos_percentage, neg_percentage = sentiment._get_tweet_coefficient()
         print("Positive Percentage: ", pos_percentage)
         print("Negative Percentaage: ", neg_percentage)
 
@@ -23,5 +25,5 @@ class MarketIndex():
         print("Negative Percentaage: ", neg_percentage)
 
 if __name__ == '__main__':
-    index = MarketIndex("Google")
+    index = MarketIndex("Google", 100)
     index.compute_tweet_index()
