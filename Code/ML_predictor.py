@@ -40,7 +40,7 @@ class MLPredictor():
         plt.xlabel('Date')
         plt.ylabel('Price')
         plt.legend()
-        plt.savefig("{}_stock_rbf.png".format("Apple"))
+        plt.savefig("{}_stock_rbf.png".format(self.stock_name))
         return rbf.predict(dates)[0]
 
 if __name__ == '__main__':
