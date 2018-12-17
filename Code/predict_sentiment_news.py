@@ -80,10 +80,3 @@ class SentimentNews():
         else:
             pos_percentage *= self.coeff
         return pos_percentage, neg_percentage
-
-if __name__ == '__main__':
-    sentiment = SentimentNews("Google")
-    sentiment.graph_sentiment()
-    pos_percentage, neg_percentage = sentiment.compute_score()
-    print("Positive Percentage: ", pos_percentage)
-    print("Negative Percentaage: ", neg_percentage)
