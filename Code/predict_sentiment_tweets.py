@@ -9,6 +9,7 @@ import tweepy as tp
 from keras.preprocessing import sequence
 import numpy as np
 import re
+import matplotlib.pyplot as plt
 
 consumer_key = ''
 consumer_secret = ''
@@ -22,7 +23,7 @@ neg_count = 0
 pos_count = 0
 t_sum = 0
 coeff = 0.01
-word = "hate"
+word = "Google"
 
 def twitter_conn(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = tp.OAuthHandler(consumer_key, consumer_secret)
@@ -76,10 +77,22 @@ def _get_results():
             t_sum += 1
             neg_tweets_lst.append(cleaned_twts[ix])
 
-    return t_sum, neg_count, pos_count
+    return t_sum, neg_count, pos_count, flat_out
+
+
+def graph_sentiment():
+    _, _, _, sentiments = _get_results()
+    objects = tuple(x for x in range(20))
+    y_pos = np.arange(20)
+    plt.bar(y_pos, sentiments[:20], align='center', alpha=0.5)
+    plt.xticks(y_pos, objects)
+    plt.ylabel('Sentiment')
+    plt.xlabel('Tweet Count')
+    plt.title('Tweets Sentiment Graph for {}'.format(word))
+    plt.savefig('sentiment_results_tweets_{}.png'.format(word))
 
 def _get_tweet_coefficient():
-    total_tweets, negative_tweets, positive_tweets = _get_results()
+    total_tweets, negative_tweets, positive_tweets,_ = _get_results()
     print("Total Tweets: ", total_tweets)
     print("Total Negative Tweets: ", negative_tweets)
     print("Total Positive Tweets: ", positive_tweets)
@@ -95,6 +108,7 @@ def _get_tweet_coefficient():
         pos_percentage *= coeff
     print("Up Positive Percentage: ", pos_percentage)
     print("Up Negative Percentage: ", neg_percentage)
+    graph_sentiment()
 
 if __name__ == '__main__':
     _get_tweet_coefficient()
