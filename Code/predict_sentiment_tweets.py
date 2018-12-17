@@ -23,7 +23,7 @@ neg_count = 0
 pos_count = 0
 t_sum = 0
 coeff = 0.01
-word = "Google"
+word = "Love"
 
 def twitter_conn(consumer_key, consumer_secret, access_token, access_token_secret):
     auth = tp.OAuthHandler(consumer_key, consumer_secret)
@@ -102,7 +102,7 @@ def _get_tweet_coefficient():
     print("Difference Percentage: ", diff_percentage)
     print("Positive Percentage: ", pos_percentage)
     print("Negative Percentage: ", neg_percentage)
-    if diff_percentage > 0.10:  # if the diff is less than a certain percentage, then negative is dominant.
+    if pos_percentage > neg_percentage:
         neg_percentage *= coeff
     else:
         pos_percentage *= coeff
