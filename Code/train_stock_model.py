@@ -9,7 +9,8 @@ import matplotlib.pyplot as plt
 import Stock_Data_Renderer
 
 class StockPredictor():
-    def __init__(self):
+    def __init__(self, stockfile):
+        self.stockfile = stockfile
         self.batch_size = 32
         self.seq_length = 20
         self.neurons = 256
@@ -41,7 +42,7 @@ class StockPredictor():
         return loss, returned_outputs
 
     def train_network(self):
-        DataRenderer = Stock_Data_Renderer.StockDataRenderer("Data/Stocks/EBAY.csv")
+        DataRenderer = Stock_Data_Renderer.StockDataRenderer(self.stockfile)
         x_train, y_train, x_valid, y_valid, x_test, y_test = DataRenderer.render_data()
         x_batch, y_batch = DataRenderer.next_batch(self.batch_size, x_train, y_train)
         loss, outputs = self.training_ops()
@@ -65,5 +66,5 @@ class StockPredictor():
         y_test_pred = sess.run(outputs, feed_dict={self.X: x_test})
 
 if __name__ == '__main__':
-    pred = StockPredictor()
+    pred = StockPredictor("Data/Stocks/EBAY.csv")
     pred.train_network()
