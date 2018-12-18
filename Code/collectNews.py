@@ -17,12 +17,13 @@ file_csv = "articles/{}_{}_tweets_{}.csv"
 yahoo_base_url = "https://finance.yahoo.com/quote/{}?p={}"
 
 class NewsScrapper():
-    def __init__(self, stockName):
+    def __init__(self, stockName, source):
         self.stockName = stockName
+        self.source = source
         self.titles_lst = []
         self._current_stuff_ = datetime.datetime.now()
         self.time_date = self._current_stuff_.strftime("%Y-%m-%d-%H-%M")
-        self.file_name_ = file_csv.format(self.time_date, self.stockName, "yahoo")
+        self.file_name_ = file_csv.format(self.time_date, self.stockName, self.source)
         self.file_name_ = open(self.file_name_, 'w')
         self.file_name_.write('Stock'+','+'Article'+'\n')
 
@@ -86,7 +87,12 @@ class NewsScrapper():
             print("Title: ", ix)
         self.file_name_.close()
 
+    def data_collector(self):
+        if self.source == "cnbc":
+            self._get_cnbc_news()
+        else:
+            self.get_yahoo_news()
 
 if __name__ == '__main__':
-    NS = NewsScrapper("GOOG")
-    NS.get_yahoo_news()
+    NS = NewsScrapper("AAPL", "yahoo")
+    NS.data_collector()
