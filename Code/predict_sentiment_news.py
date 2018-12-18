@@ -12,6 +12,8 @@ import pandas as pd
 import glob
 import matplotlib.pyplot as plt
 
+
+
 class SentimentNews():
     def __init__(self, article_name):
         self.articles = []
@@ -62,9 +64,14 @@ class SentimentNews():
 
     def graph_sentiment(self):
         pos_count, neg_count, total_count, sentiments = self.get_sentiment()
-        objects = tuple(x for x in range(20))
-        y_pos = np.arange(20)
-        plt.bar(y_pos, sentiments[:20], align='center', alpha=0.5)
+        if total_count > 20:
+            objects = tuple(x for x in range(20))
+            y_pos = np.arange(20)
+            plt.bar(y_pos, sentiments[:20], align='center', alpha=0.5)
+        else:
+            objects = tuple(x for x in range(total_count))
+            y_pos = np.arange(total_count)
+            plt.bar(y_pos, sentiments, align='center', alpha=0.5)
         plt.xticks(y_pos, objects)
         plt.ylabel('Sentiment')
         plt.xlabel('Article Count')
