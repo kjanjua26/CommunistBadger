@@ -13,7 +13,7 @@ import datetime
 
 # Basic names and IO requirements.
 cnbc_base_url = "https://www.cnbc.com/search/?query={}&qsearchterm={}"
-file_csv = "articles/{}_{}_tweets_{}.csv"
+file_csv = "articles/{}_{}_news_{}.csv"
 yahoo_base_url = "https://finance.yahoo.com/quote/{}?p={}"
 
 class NewsScrapper():
