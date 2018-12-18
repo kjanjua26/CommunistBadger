@@ -13,3 +13,8 @@ This is a fitted RBF Kernel graph for Apple Stocks Data.
 ## Candlestick Graphs for AAPL Stock Data
 This is a candle stick graph on the Apple Stock Data using High, Close, Low and Open.
 <img src="visualization/candlestick_aapl.png"/>
+
+## Stock Prediction for EBAY
+LSTMs trained on EBAY Stock for prediction of High, Close, Low and Open for next x days.
+<img src="visualization/stock_prediction_EBAY.png"/>
+
