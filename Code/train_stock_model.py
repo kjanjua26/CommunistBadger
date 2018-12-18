@@ -7,6 +7,8 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import Stock_Data_Renderer
+from matplotlib.finance import candlestick2_ohlc
+
 
 class StockPredictor():
     def __init__(self, stockfile, mode, iftrain):
@@ -60,7 +62,7 @@ class StockPredictor():
                 val_loss, _ = sess.run([loss, ops], feed_dict={self.X: x_valid, self.Y: y_valid})
                 print("Validation Time!")
                 print("Val Loss: {}".format(val_loss))
-                saver.save(sess, "Models/model-stock-epoch{}.ckpt".format(epoch))
+                saver.save(sess, "Models/model-stock-epoch{}-{}.ckpt".format(epoch, self.stockfile.split('/')[-1].replace('.csv','')))
                 print("Model saved for epoch # {}".format(epoch))
                 print("")
         y_train_pred = sess.run(outputs, feed_dict={self.X: x_train})
@@ -74,19 +76,40 @@ class StockPredictor():
         saver = tf.train.Saver()
         with tf.Session() as sess:
             sess.run(tf.global_variables_initializer())
-            ckpt = tf.train.get_checkpoint_state("Models")
-            saver.restore(sess, "Models/model-stock-epoch40.ckpt")
+            tf.train.get_checkpoint_state("Models")
+            saver.restore(sess, "Models/model-stock-epoch40-{}.ckpt".format(self.stockfile.split('/')[-1].replace('.csv','')))
             prediction = sess.run(outputs, feed_dict={self.X:x_test})
 
-        unnorm_pred = DataRenderer.unnormalize(prediction)
-        print("Shape: ", y_train.shape[0])
+        unnorm_pred = DataRenderer.unnormalize(prediction) # un-normalizing the values since we normalized them.
         ft = 0  # 0 = open, 1 = close, 2 = highest, 3 = lowest
-        print(unnorm_pred[:, ft])
         plt.plot(np.arange(y_train.shape[0], y_train.shape[0] + prediction.shape[0]), unnorm_pred[:, ft], color='black')
         plt.title('Predicted Stock Prices For {}'.format(self.stockfile.split('/')[-1].replace('.csv','')))
         plt.xlabel('Time [Days]')
         plt.ylabel('Price')
+        plt.savefig("stock_prediction_{}.png".format(self.stockfile.split('/')[-1].replace('.csv','')))
+        plt.close()
+        '''
+        print("Plotting Candelstick Graph For Predictions")
+        candleStickList = []
+        high_lst = []
+        low_lst = []
+        close_lst = []
+        open_lst = []
+        for vals in list(unnorm_pred):
+            open, close, high, low = list(vals)
+            high_lst.append(high)
+            low_lst.append(low)
+            close_lst.append(close)
+            open_lst.append(open)
+            vals_to_append = open, close, high, low
+            candleStickList.append(vals_to_append)
+        fig, ax = plt.subplots()
+        candlestick2_ohlc(ax, open_lst, high_lst, low_lst, close_lst, width=0.9)
+        plt.xlabel('Time [Days]')
+        plt.ylabel('Price')
+        plt.title('CandleStick Pred Stock Prices For {}'.format(self.stockfile.split('/')[-1].replace('.csv','')))
         plt.show()
+        '''
 
     def run(self):
         if self.iftrain:
