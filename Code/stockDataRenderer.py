@@ -53,3 +53,11 @@ class StockDataRenderer():
         print('x_test Shape = ', x_test.shape)
         print('y_test Shape = ', y_test.shape)
         return x_train, y_train, x_valid, y_valid, x_test, y_test
+
+    def next_batch(self, num, data, labels):
+        idx = np.arange(0, len(data))
+        np.random.shuffle(idx)
+        idx = idx[:num]
+        data_shuffle = [data[i] for i in idx]
+        labels_shuffle = [labels[i] for i in idx]
+        return np.asarray(data_shuffle), np.asarray(labels_shuffle)
