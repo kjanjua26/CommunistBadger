@@ -9,7 +9,9 @@ import matplotlib.pyplot as plt
 import Stock_Data_Renderer
 
 class StockPredictor():
-    def __init__(self, stockfile):
+    def __init__(self, stockfile, mode, iftrain):
+        self.mode = mode
+        self.iftrain = iftrain
         self.stockfile = stockfile
         self.batch_size = 32
         self.seq_length = 20
@@ -58,13 +60,40 @@ class StockPredictor():
                 val_loss, _ = sess.run([loss, ops], feed_dict={self.X: x_valid, self.Y: y_valid})
                 print("Validation Time!")
                 print("Val Loss: {}".format(val_loss))
-                save_path = saver.save(sess, "Models/model-stock-epoch{}.ckpt".format(epoch))
+                saver.save(sess, "Models/model-stock-epoch{}.ckpt".format(epoch))
                 print("Model saved for epoch # {}".format(epoch))
                 print("")
         y_train_pred = sess.run(outputs, feed_dict={self.X: x_train})
-        y_valid_pred = sess.run(outputs, feed_dict={self.X: x_valid})
         y_test_pred = sess.run(outputs, feed_dict={self.X: x_test})
+        return y_test_pred, y_train_pred
+
+    def plot_predictions(self):
+        DataRenderer = Stock_Data_Renderer.StockDataRenderer(self.stockfile)
+        _, y_train, _, _, x_test, _ = DataRenderer.render_data()
+        outputs = self.model_()
+        saver = tf.train.Saver()
+        with tf.Session() as sess:
+            sess.run(tf.global_variables_initializer())
+            ckpt = tf.train.get_checkpoint_state("Models")
+            saver.restore(sess, "Models/model-stock-epoch40.ckpt")
+            prediction = sess.run(outputs, feed_dict={self.X:x_test})
+
+        unnorm_pred = DataRenderer.unnormalize(prediction)
+        print("Shape: ", y_train.shape[0])
+        ft = 0  # 0 = open, 1 = close, 2 = highest, 3 = lowest
+        print(unnorm_pred[:, ft])
+        plt.plot(np.arange(y_train.shape[0], y_train.shape[0] + prediction.shape[0]), unnorm_pred[:, ft], color='black')
+        plt.title('Predicted Stock Prices For {}'.format(self.stockfile.split('/')[-1].replace('.csv','')))
+        plt.xlabel('Time [Days]')
+        plt.ylabel('Price')
+        plt.show()
+
+    def run(self):
+        if self.iftrain:
+            self.train_network()
+        else:
+            self.plot_predictions()
 
 if __name__ == '__main__':
-    pred = StockPredictor("Data/Stocks/EBAY.csv")
-    pred.train_network()
+    pred = StockPredictor("Data/Stocks/EBAY.csv", "LSTM", False)
+    pred.run()
