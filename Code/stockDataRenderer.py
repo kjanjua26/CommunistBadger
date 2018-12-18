@@ -15,12 +15,17 @@ class StockDataRenderer():
         self.test_data_percent = 10
 
     def normalize(self, df):
-        min_max_scaler = MinMaxScaler()
-        df['open'] = min_max_scaler.fit_transform(df.open.values.reshape(-1, 1))
-        df['high'] = min_max_scaler.fit_transform(df.high.values.reshape(-1, 1))
-        df['low'] = min_max_scaler.fit_transform(df.low.values.reshape(-1, 1))
-        df['close'] = min_max_scaler.fit_transform(df['close'].values.reshape(-1, 1))
+        scaler = MinMaxScaler()
+        df['open'] = scaler.fit_transform(df.open.values.reshape(-1, 1))
+        df['high'] = scaler.fit_transform(df.high.values.reshape(-1, 1))
+        df['low'] = scaler.fit_transform(df.low.values.reshape(-1, 1))
+        df['close'] = scaler.fit_transform(df['close'].values.reshape(-1, 1))
         return df
+
+    def unnormalize(self, value):
+        scaler = MinMaxScaler()
+        scaler.fit(value)
+        return scaler.inverse_transform(value)
 
     def load_stock(self, stock):
         data_raw = stock.as_matrix()
