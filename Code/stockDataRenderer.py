@@ -46,12 +46,6 @@ class StockDataRenderer():
         df_stock = df.copy()
         df_stock_norm = self.normalize(df_stock)
         x_train, y_train, x_valid, y_valid, x_test, y_test = self.load_stock(df_stock_norm)
-        print('x_train Shape = ', x_train.shape)
-        print('y_train Shape = ', y_train.shape)
-        print('x_valid Shape = ', x_valid.shape)
-        print('y_valid Shape = ', y_valid.shape)
-        print('x_test Shape = ', x_test.shape)
-        print('y_test Shape = ', y_test.shape)
         return x_train, y_train, x_valid, y_valid, x_test, y_test
 
     def next_batch(self, num, data, labels):
