@@ -7,8 +7,6 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import Stock_Data_Renderer
-from matplotlib.finance import candlestick2_ohlc
-
 
 class StockPredictor():
     def __init__(self, stockfile, mode, iftrain):
@@ -88,35 +86,16 @@ class StockPredictor():
         plt.ylabel('Price')
         plt.savefig("stock_prediction_{}.png".format(self.stockfile.split('/')[-1].replace('.csv','')))
         plt.close()
-        '''
-        print("Plotting Candelstick Graph For Predictions")
+
         candleStickList = []
-        high_lst = []
-        low_lst = []
-        close_lst = []
-        open_lst = []
         for vals in list(unnorm_pred):
             open, close, high, low = list(vals)
-            high_lst.append(high)
-            low_lst.append(low)
-            close_lst.append(close)
-            open_lst.append(open)
             vals_to_append = open, close, high, low
             candleStickList.append(vals_to_append)
-        fig, ax = plt.subplots()
-        candlestick2_ohlc(ax, open_lst, high_lst, low_lst, close_lst, width=0.9)
-        plt.xlabel('Time [Days]')
-        plt.ylabel('Price')
-        plt.title('CandleStick Pred Stock Prices For {}'.format(self.stockfile.split('/')[-1].replace('.csv','')))
-        plt.show()
-        '''
+        return candleStickList
 
     def run(self):
         if self.iftrain:
             self.train_network()
         else:
-            self.plot_predictions()
-
-if __name__ == '__main__':
-    pred = StockPredictor("Data/Stocks/EBAY.csv", "LSTM", False)
-    pred.run()
+            pred = self.plot_predictions()
