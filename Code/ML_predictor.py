@@ -12,13 +12,15 @@ from sklearn.svm import SVR
 
 
 class MLPredictor():
-    def __init__(self):
+    def __init__(self, data, stock_name):
         self.dates = []
         self.prices = []
+        self.data = data
+        self.stock_name = stock_name
 
     # Read CSV file
-    def readFile(self, filename):
-        with open(filename, "r") as csvfile:
+    def readFile(self):
+        with open(self.data, "r") as csvfile:
             fileReader = csv.reader(csvfile)
             next(fileReader)
             for row in fileReader:
@@ -38,11 +40,11 @@ class MLPredictor():
         plt.xlabel('Date')
         plt.ylabel('Price')
         plt.legend()
-        plt.show()
+        plt.savefig("{}_stock_rbf.png".format(self.stock_name))
         return rbf.predict(dates)[0]
 
 if __name__ == '__main__':
-    mlpred = MLPredictor()
-    dates, prices = mlpred.readFile('Data/aapl.csv')
+    mlpred = MLPredictor('Data/aapl.csv', 'Apple')
+    dates, prices = mlpred.readFile()
     predicted_price = mlpred.predict_prices(dates, prices)
     print("The price will move from", prices[0], "to", ":", predicted_price)
