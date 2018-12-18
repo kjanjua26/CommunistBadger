@@ -5,22 +5,27 @@
 import pandas as pd
 from matplotlib.finance import candlestick2_ohlc
 import matplotlib.pyplot as plt
+import glob
 
 class PlotGraph():
-    def __init__(self, stockName):
-        self.stockName = stockName
-
-
-    def plot_graph(self):
-        df = pd.read_csv("Data/{}.csv".format(self.stockName))
+    def plot_graph(self, stockName):
+        df = pd.read_csv(stockName)
         fig, ax = plt.subplots()
-        candlestick2_ohlc(ax, df['Open'], df['High'], df['Low'], df['Close'], width=0.9)
-        plt.xlabel('Date')
-        plt.ylabel('Price')
-        plt.title("Stock Graph For {}".format(self.stockName))
-        plt.savefig('candlestick_{}'.format(self.stockName))
-        plt.show()
+        try:
+            candlestick2_ohlc(ax, df['open'], df['high'], df['low'], df['close'], width=0.9)
+            plt.xlabel('Date')
+            plt.ylabel('Price')
+            print("Plotting -> {}".format(stockName))
+            stock_plot = stockName.split('.csv')[0].split('/')[1]
+            plt.title("Stock Graph For {}".format(stock_plot))
+            plt.savefig('Visualizations/candlestick_{}.png'.format(stock_plot))
+        except:
+            print("Error -> {}".format(stockName))
+
+    def run(self):
+       for stock in glob.glob("Data/Stocks/"+"*.csv"):
+           self.plot_graph(stock)
 
 if __name__ == '__main__':
-    graph = PlotGraph("aapl")
-    graph.plot_graph()
+    graph = PlotGraph()
+    graph.run()
