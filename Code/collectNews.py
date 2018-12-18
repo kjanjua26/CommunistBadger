@@ -12,9 +12,9 @@ from collections import OrderedDict
 import datetime
 
 # Basic names and IO requirements.
-_base_url = "https://www.cnbc.com/search/?query={}&qsearchterm={}"
-file_csv = "articles/{}_{}_tweets_cbnc.csv"
-
+cnbc_base_url = "https://www.cnbc.com/search/?query={}&qsearchterm={}"
+file_csv = "articles/{}_{}_tweets_{}.csv"
+yahoo_base_url = "https://finance.yahoo.com/quote/{}?p={}"
 
 class NewsScrapper():
     def __init__(self, stockName):
@@ -22,15 +22,16 @@ class NewsScrapper():
         self.titles_lst = []
         self._current_stuff_ = datetime.datetime.now()
         self.time_date = self._current_stuff_.strftime("%Y-%m-%d-%H-%M")
-        self.file_name_ = file_csv.format(self.time_date, self.stockName)
+        self.file_name_ = file_csv.format(self.time_date, self.stockName, "yahoo")
         self.file_name_ = open(self.file_name_, 'w')
         self.file_name_.write('Stock'+','+'Article'+'\n')
 
     def _get_cnbc_news(self):
-        _scrap_url = _base_url.format(self.stockName,self.stockName)
+        _scrap_url = cnbc_base_url.format(self.stockName,self.stockName)
+        assert "query" in _scrap_url # asserting that it is a URL, else error.
         driver = webdriver.Chrome()
         driver.get(_scrap_url)
-        for i in range(1, 200):  # scrolling for n times
+        for i in range(1, 10):  # scrolling for n times
             driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")  # infinite scrolling issue.
             time.sleep(4)
         page = driver.page_source
@@ -61,6 +62,31 @@ class NewsScrapper():
             print("Title: ", ix)
         self.file_name_.close()
 
+    def get_yahoo_news(self):
+        _scrap_url = yahoo_base_url.format(self.stockName, self.stockName)
+        assert "q" in _scrap_url
+        driver = webdriver.Chrome()
+        driver.get(_scrap_url)
+        for i in range(1, 10):  # scrolling for n times
+            driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")  # infinite scrolling issue.
+            time.sleep(4)
+        page = driver.page_source
+        driver.quit()
+        soup = BeautifulSoup(page, 'html.parser')
+        titles = soup.find_all('h3', attrs={'class': 'Mb(5px)'})
+        for title in titles:
+            subUrl, title, _ = str(title).split('-->')
+            title = title.replace('<!-- /react-text', '')
+            self.titles_lst.append(title)
+        for ix in self.titles_lst:
+            ix = ix.replace('...', '')
+            if ',' in ix:
+                ix = ix.replace(',', '')
+            self.file_name_.write(self.stockName + "," + ix + "\n")
+            print("Title: ", ix)
+        self.file_name_.close()
+
+
 if __name__ == '__main__':
-    NS = NewsScrapper("Google")
-    NS._get_cnbc_news()
+    NS = NewsScrapper("GOOG")
+    NS.get_yahoo_news()
