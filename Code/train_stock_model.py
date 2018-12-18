@@ -99,3 +99,4 @@ class StockPredictor():
             self.train_network()
         else:
             pred = self.plot_predictions()
+        return pred
