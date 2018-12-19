@@ -23,6 +23,11 @@ except ImportError:
 
 import starting_support
 
+def kill1(event):
+    root.destroy()
+    from p2 import vp_start_gui
+    vp_start_gui()
+
 def vp_start_gui():
     '''Starting point when module is the main routine.'''
     global val, w, root
@@ -60,6 +65,7 @@ class Toplevel1:
 
         top.geometry("600x272+464+331")
         top.title("Start")
+        top.resizable(0, 0)
         top.configure(background="#d9d9d9")
 
         self.Canvas1 = tk.Canvas(top)
@@ -73,6 +79,7 @@ class Toplevel1:
         self.Canvas1.configure(selectbackground="#c4c4c4")
         self.Canvas1.configure(selectforeground="black")
         self.Canvas1.configure(width=583)
+        self.Canvas1.bind("<Button-1>", kill1)
 
         self.Label1 = tk.Label(self.Canvas1)
         self.Label1.place(relx=0.24, rely=0.751, height=51, width=305)
@@ -80,6 +87,7 @@ class Toplevel1:
         self.Label1.configure(disabledforeground="#a3a3a3")
         self.Label1.configure(font=font11)
         self.Label1.configure(foreground="#000000")
+        assert isinstance("COMMUNISTBADGER", str)
         self.Label1.configure(text='''COMMUNIST BADGER''')
         self.Label1.configure(width=305)
 

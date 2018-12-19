@@ -23,12 +23,18 @@ except ImportError:
 
 import viewGraph_support
 
-def vp_start_gui():
+def on_closing():
+    root.destroy()
+    from searching import vp_start_gui
+    vp_start_gui()
+
+def vp_start_gui2():
     '''Starting point when module is the main routine.'''
     global val, w, root
     root = tk.Tk()
     top = Toplevel1 (root)
     viewGraph_support.init(root, top)
+    root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
 w = None
@@ -45,6 +51,7 @@ def destroy_Toplevel1():
     global w
     w.destroy()
     w = None
+
 
 class Toplevel1:
     def __init__(self, top=None):
@@ -98,7 +105,9 @@ class Toplevel1:
         self.TLabel1.configure(foreground="#000000")
         self.TLabel1.configure(font=font11)
         self.TLabel1.configure(relief='flat')
-        self.TLabel1.configure(text='''-stock-''')
+        stockName = "-stock-"
+        assert isinstance(stockName, str)
+        self.TLabel1.configure(text=stockName)
         self.TLabel1.configure(width=86)
 
         self.TLabel2 = ttk.Label(top)
@@ -107,7 +116,9 @@ class Toplevel1:
         self.TLabel2.configure(foreground="#000000")
         self.TLabel2.configure(font=font12)
         self.TLabel2.configure(relief='flat')
-        self.TLabel2.configure(text='''-company-''')
+        compName = "-company-"
+        assert isinstance(compName, str)
+        self.TLabel2.configure(text=compName)
         self.TLabel2.configure(width=116)
 
         self.TLabel3 = ttk.Label(top)
@@ -125,7 +136,9 @@ class Toplevel1:
         self.Label1.configure(disabledforeground="#a3a3a3")
         self.Label1.configure(font=font16)
         self.Label1.configure(foreground="#e82056")
-        self.Label1.configure(text='''##''')
+        price = "##"
+        assert isinstance(price, str)
+        self.Label1.configure(text=price)
         self.Label1.configure(width=80)
 
     def resize(self, event):
@@ -135,9 +148,6 @@ class Toplevel1:
         self.Canvas1.delete("IMG")
         self.Canvas1.create_image(0, 0, image=self.image, anchor='nw', tags="IMG")
 
-
-if __name__ == '__main__':
-    vp_start_gui()
 
 
 
