@@ -44,16 +44,27 @@ def destroy_Toplevel1():
     global w
     w.destroy()
     w = None
+
+
+# updating window
 def kill1():
     root.destroy()
     from updating import vp_start_gui
     vp_start_gui()
 
-
+# open Searching page
 def kill2(event):
     root.destroy()
     from searching import vp_start_gui
     vp_start_gui()
+
+
+def stock():
+    root.destroy()
+    from stockList import vp_start_gui
+    vp_start_gui()
+
+
 class Toplevel1:
     def __init__(self, top=None):
         '''This class configures and populates the toplevel window.
@@ -107,7 +118,7 @@ class Toplevel1:
         self.TButton1.configure(takefocus="")
         self.TButton1.configure(text='''Update Stocks''')
 
-        self.TButton2 = ttk.Button(top)
+        self.TButton2 = ttk.Button(top, command=stock)
         self.TButton2.place(relx=0.265, rely=0.133, height=25, width=126)
         self.TButton2.configure(takefocus="")
         self.TButton2.configure(text='''Stock list''')
@@ -201,9 +212,9 @@ class Toplevel1:
         self.Frame4.configure(width=585)
 
         self.Canvas2 = tk.Canvas(self.Frame4)
-        vbar = tk.Scrollbar(self.Frame4, orient='vertical', command=self.Canvas2.yview)
+        vbar = tk.Scrollbar(self.Frame4, orient="vertical", command=self.Canvas2.yview)
         self.Canvas2.configure(scrollregion=(0,0,5000,5000))
-        vbar.pack(side='right', fill='y')
+        vbar.pack(side="right", fill="y")
         self.Canvas2.configure(background="#d9d9d9")
         self.Canvas2.configure(borderwidth="2")
         self.Canvas2.configure(highlightbackground="#d9d9d9")
@@ -213,7 +224,7 @@ class Toplevel1:
         self.Canvas2.configure(selectbackground="#c4c4c4")
         self.Canvas2.configure(selectforeground="black")
         self.Canvas2.configure(yscrollcommand=vbar.set)
-        self.Canvas2.pack(side='left', expand=True, fill='both')
+        self.Canvas2.pack(side="left", expand=True, fill="both")
 
         self.TLabel5 = ttk.Label(self.Canvas2)
         self.TLabel5.pack(fill='x', padx=5, pady=5)
