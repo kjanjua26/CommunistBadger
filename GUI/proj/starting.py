@@ -23,7 +23,7 @@ except ImportError:
 
 import starting_support
 
-def kill1(event):
+def kill1():
     root.destroy()
     from p2 import vp_start_gui
     vp_start_gui()
@@ -79,7 +79,6 @@ class Toplevel1:
         self.Canvas1.configure(selectbackground="#c4c4c4")
         self.Canvas1.configure(selectforeground="black")
         self.Canvas1.configure(width=583)
-        self.Canvas1.bind("<Button-1>", kill1)
 
         self.Label1 = tk.Label(self.Canvas1)
         self.Label1.place(relx=0.24, rely=0.751, height=51, width=305)
@@ -106,6 +105,8 @@ class Toplevel1:
         self.Canvas2.configure(width=273)
         self.Canvas2.create_image(0, 0, image=self.image, anchor='nw', tags="IMG")
         self.Canvas2.bind("<Configure>", self.resize)
+
+        top.after(2000, kill1)
 
     def resize(self, event):
         size = (event.width, event.height)
