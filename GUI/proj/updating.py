@@ -61,7 +61,7 @@ class Toplevel1:
             "-underline 0 -overstrike 0"
 
         top.geometry("273x105+553+306")
-        top.title("New Toplevel")
+        top.title("Downloading New Data...")
         top.resizable(0, 0)
         top.configure(background="#d9d9d9")
 

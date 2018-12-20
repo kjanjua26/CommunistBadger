@@ -78,7 +78,7 @@ class Toplevel1:
             " normal -slant roman -underline 0 -overstrike 0"
         font11 = "-family {Franklin Gothic Demi} -size 21 -weight "  \
             "normal -slant roman -underline 0 -overstrike 0"
-        font13 = "-family {Shonar Bangla} -size 14 -weight normal "  \
+        font13 = "-family {Shonar Bangla} -size 18 -weight normal "  \
             "-slant roman -underline 0 -overstrike 0"
         font16 = "-family {Segoe UI} -size 12 -weight normal -slant "  \
             "roman -underline 0 -overstrike 0"
@@ -150,19 +150,19 @@ class Toplevel1:
         self.TLabel3.configure(relief='flat')
         self.TLabel3.configure(text='''Market Trend''')
 
-        self.original = Image.open('sample.png')
+        self.original = Image.open('green-arrow.png')
         self.image = ImageTk.PhotoImage(self.original)
         self.Canvas1 = tk.Canvas(self.TFrame1)
-        self.Canvas1.place(relx=0.036, rely=0.276, relheight=0.641, relwidth=0.92)
+        self.Canvas1.place(relx=0.291, rely=0.276, relheight=0.641, relwidth = 0.375)
         self.Canvas1.configure(background="#d9d9d9")
-        self.Canvas1.configure(borderwidth="2")
+        self.Canvas1.configure(borderwidth="0")
         self.Canvas1.configure(highlightbackground="#d9d9d9")
-        self.Canvas1.configure(highlightcolor="black")
-        self.Canvas1.configure(insertbackground="black")
+        self.Canvas1.configure(highlightcolor="#d9d9d9")
+        self.Canvas1.configure(insertbackground="#d9d9d9")
         self.Canvas1.configure(relief='ridge')
-        self.Canvas1.configure(selectbackground="#c4c4c4")
-        self.Canvas1.configure(selectforeground="black")
-        self.Canvas1.configure(width=253)
+        self.Canvas1.configure(selectbackground="#d9d9d9")
+        self.Canvas1.configure(selectforeground="#d9d9d9")
+        self.Canvas1.configure(width=103)
         self.Canvas1.create_image(0, 0, image=self.image, anchor='nw', tags="IMG")
         self.Canvas1.bind("<Configure>", self.resize)
 
@@ -189,7 +189,7 @@ class Toplevel1:
         self.Label1.configure(font=font15)
         self.Label1.configure(foreground="#000000")
 
-        self.Label1.configure(text='''###''')
+        self.Label1.configure(text='''+9.77''')
         self.Label1.configure(width=104)
 
         self.TLabel2 = ttk.Label(top)
@@ -251,6 +251,10 @@ class Toplevel1:
             l1.configure(font=font13)
             l1.configure(foreground="#000000")
             comName = "Google"
+            if(num==1):
+                comName= "Apple"
+            if(num==2):
+                comName= "Ebay"
             assert isinstance(comName, str)
             l1.configure(text=comName)
             l1.configure(width=57)
@@ -270,7 +274,11 @@ class Toplevel1:
             l3.configure(disabledforeground="#a3a3a3")
             l3.configure(font=font17)
             l3.configure(foreground="#000000")
-            price = "###"
+            price = "-5.70"
+            if(num==1):
+                price= "-5.18"
+            if(num==2):
+                price = "-0.20"
             assert isinstance(price, str)
             l3.configure(text=price)
             l3.configure(width=34)

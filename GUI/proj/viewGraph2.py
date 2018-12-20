@@ -68,7 +68,7 @@ class Toplevel1:
             "-slant roman -underline 0 -overstrike 0"
         font15 = "-family {Segoe UI} -size 30 -weight normal -slant "  \
             "roman -underline 0 -overstrike 0"
-        font16 = "-family {Segoe UI} -size 30 -weight normal -slant "  \
+        font16 = "-family {Segoe UI} -size 15 -weight normal -slant "  \
             "roman -underline 1 -overstrike 0"
         self.style = ttk.Style()
         if sys.platform == "win32":
@@ -83,7 +83,7 @@ class Toplevel1:
         top.title("View")
         top.configure(background="#d9d9d9")
 
-        self.original = Image.open('EBAY.png')
+        self.original = Image.open('FB.png')
         self.image = ImageTk.PhotoImage(self.original)
         self.Canvas1 = tk.Canvas(top)
         self.Canvas1.place(relx=0.023, rely=0.426, relheight=0.554
@@ -105,7 +105,7 @@ class Toplevel1:
         self.TLabel1.configure(foreground="#000000")
         self.TLabel1.configure(font=font11)
         self.TLabel1.configure(relief='flat')
-        stockName = "EBAY"
+        stockName = "FB"
         assert isinstance(stockName, str)
         self.TLabel1.configure(text=stockName)
         self.TLabel1.configure(width=86)
@@ -116,7 +116,7 @@ class Toplevel1:
         self.TLabel2.configure(foreground="#000000")
         self.TLabel2.configure(font=font12)
         self.TLabel2.configure(relief='flat')
-        compName = "EBAY"
+        compName = "Facebook"
         assert isinstance(compName, str)
         self.TLabel2.configure(text=compName)
         self.TLabel2.configure(width=116)
@@ -136,7 +136,7 @@ class Toplevel1:
         self.Label1.configure(disabledforeground="#a3a3a3")
         self.Label1.configure(font=font16)
         self.Label1.configure(foreground="#e82056")
-        price = "0.04"
+        price = "0.018"
         assert isinstance(price, str)
         self.Label1.configure(text=price)
         self.Label1.configure(width=80)

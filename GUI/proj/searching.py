@@ -26,7 +26,10 @@ def kill1():
     root.destroy()
     from viewGraph import vp_start_gui2
     vp_start_gui2()
-
+def kill2():
+    root.destroy()
+    from viewGraph2 import vp_start_gui2
+    vp_start_gui2()
 def back():
     root.destroy()
     from p2 import vp_start_gui
@@ -68,7 +71,7 @@ class Toplevel1:
             "-slant roman -underline 0 -overstrike 0"
         font14 = "-family {Segoe UI} -size 30 -weight normal -slant "  \
             "roman -underline 0 -overstrike 0"
-        font15 = "-family {Shonar Bangla} -size 24 -weight normal "  \
+        font15 = "-family {Shonar Bangla} -size 14 -weight normal "  \
             "-slant roman -underline 0 -overstrike 0"
         font17 = "-family {Shonar Bangla} -size 20 -weight normal "  \
             "-slant roman -underline 0 -overstrike 0"
@@ -132,7 +135,7 @@ class Toplevel1:
         self.Label1.configure(disabledforeground="#a3a3a3")
         self.Label1.configure(font=font15)
         self.Label1.configure(foreground="#1d73b5")
-        self.Label1.configure(text='''Goog''')
+        self.Label1.configure(text='''FB''')
 
         self.Label2 = tk.Label(self.Frame1)
         self.Label2.place(relx=0.183, rely=0.133, height=40, width=15)
@@ -140,7 +143,7 @@ class Toplevel1:
         self.Label2.configure(disabledforeground="#a3a3a3")
         self.Label2.configure(font=font14)
         self.Label2.configure(foreground="#000000")
-        self.Label2.configure(text=''':''')
+        self.Label2.configure(text='''''')
         self.Label2.configure(width=15)
 
         self.Label3 = tk.Label(self.Frame1)
@@ -149,11 +152,11 @@ class Toplevel1:
         self.Label3.configure(disabledforeground="#a3a3a3")
         self.Label3.configure(font=font17)
         self.Label3.configure(foreground="#1d73b5")
-        self.Label3.configure(text='''Google''')
+        self.Label3.configure(text='''''')
         self.Label3.configure(width=87)
 
         self.Button1 = tk.Button(self.Frame1)
-        self.Button1.place(relx=0.257, rely=0.533, height=24, width=67)
+        self.Button1.place(relx=0.257, rely=0.4, height=24, width=67)
         self.Button1.configure(activebackground="#ececec")
         self.Button1.configure(activeforeground="#000000")
         self.Button1.configure(background="#56d86c")
@@ -196,8 +199,8 @@ class Toplevel1:
         self.Label4.configure(disabledforeground="#a3a3a3")
         self.Label4.configure(font=font21)
         self.Label4.configure(foreground="#000000")
-        self.Label4.configure(text='''$''')
-        self.Label4.configure(width=15)
+        self.Label4.configure(text='''''')
+        self.Label4.configure(width=1)
 
         self.Label5 = tk.Label(self.Frame2)
         self.Label5.place(relx=0.316, rely=0.182, height=31, width=56)
@@ -205,10 +208,10 @@ class Toplevel1:
         self.Label5.configure(disabledforeground="#a3a3a3")
         self.Label5.configure(font=font22)
         self.Label5.configure(foreground="#1d73b5")
-        self.Label5.configure(text='''##''')
-        self.Label5.configure(width=56)
+        self.Label5.configure(text='''0.018''')
+        self.Label5.configure(width=60)
 
-        self.Button2 = tk.Button(self.Frame1, command = kill1)
+        self.Button2 = tk.Button(self.Frame1, command = kill2)
         self.Button2.place(relx=0.807, rely=0.267, height=34, width=87)
         self.Button2.configure(activebackground="#ececec")
         self.Button2.configure(activeforeground="#000000")
@@ -242,7 +245,7 @@ class Toplevel1:
         self.Label1_2.configure(foreground="#1d73b5")
         self.Label1_2.configure(highlightbackground="#d9d9d9")
         self.Label1_2.configure(highlightcolor="black")
-        stockName = "Goog"
+        stockName = "EBAY"
         assert isinstance(stockName, str)
         self.Label1_2.configure(text=stockName)
 
@@ -256,7 +259,7 @@ class Toplevel1:
         self.Label2_3.configure(foreground="#000000")
         self.Label2_3.configure(highlightbackground="#d9d9d9")
         self.Label2_3.configure(highlightcolor="black")
-        self.Label2_3.configure(text=''':''')
+        self.Label2_3.configure(text='''''')
 
         self.Label3_4 = tk.Label(self.Frame1_1)
         self.Label3_4.place(relx=0.239, rely=0.133, height=23, width=87)
@@ -268,12 +271,12 @@ class Toplevel1:
         self.Label3_4.configure(foreground="#1d73b5")
         self.Label3_4.configure(highlightbackground="#d9d9d9")
         self.Label3_4.configure(highlightcolor="black")
-        compName = "Google"
+        compName = ""
         assert isinstance(compName, str)
         self.Label3_4.configure(text=compName)
 
         self.Button1_5 = tk.Button(self.Frame1_1)
-        self.Button1_5.place(relx=0.257, rely=0.533, height=24, width=67)
+        self.Button1_5.place(relx=0.257, rely=0.4, height=24, width=67)
         self.Button1_5.configure(activebackground="#ececec")
         self.Button1_5.configure(activeforeground="#000000")
         self.Button1_5.configure(background="#d81a46")
@@ -322,7 +325,7 @@ class Toplevel1:
         self.Label4_8.configure(foreground="#000000")
         self.Label4_8.configure(highlightbackground="#d9d9d9")
         self.Label4_8.configure(highlightcolor="black")
-        self.Label4_8.configure(text='''$''')
+        self.Label4_8.configure(text='''''')
 
         self.Label5_9 = tk.Label(self.Frame2_7)
         self.Label5_9.place(relx=0.316, rely=0.182, height=31, width=56)
@@ -334,7 +337,7 @@ class Toplevel1:
         self.Label5_9.configure(foreground="#1d73b5")
         self.Label5_9.configure(highlightbackground="#d9d9d9")
         self.Label5_9.configure(highlightcolor="black")
-        price = "##"
+        price = "0.04"
         assert isinstance(price, str)
         self.Label5_9.configure(text=price)
 

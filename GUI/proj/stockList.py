@@ -122,7 +122,7 @@ class Toplevel1:
         self.Canvas1.configure(yscrollcommand=vbar.set)
         self.Canvas1.pack(side="left", expand=True, fill="both")
 
-        for num in range(10):
+        for num in range(4):
             b = tk.Frame(self.Canvas1)
             b.pack(fill='x', padx=7, pady=3)
             b.configure(height=45)
@@ -138,7 +138,14 @@ class Toplevel1:
             l1.configure(disabledforeground="#a3a3a3")
             l1.configure(font=font13)
             l1.configure(foreground="#000000")
-            comName = "Google"
+            if(num==0):
+                comName="GOOG"
+            if (num == 1):
+                comName = "FB"
+            if (num == 2):
+                comName = "EBAY"
+            if (num == 3):
+                comName = "AAPL"
             assert isinstance(comName, str)
             l1.configure(text=comName)
             l1.configure(width=57)
@@ -158,7 +165,14 @@ class Toplevel1:
             l3.configure(disabledforeground="#a3a3a3")
             l3.configure(font=font17)
             l3.configure(foreground="#000000")
-            price = "###"
+            if (num == 0):
+                price = "1075.56"
+            if (num == 1):
+                price = "147.7"
+            if (num == 2):
+                price = "29.95"
+            if (num == 3):
+                price = "206.0"
             assert isinstance(price, str)
             l3.configure(text=price)
             l3.configure(width=34)
