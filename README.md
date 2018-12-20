@@ -18,3 +18,13 @@ This is a candle stick graph on the Apple Stock Data using High, Close, Low and 
 LSTMs trained on EBAY Stock for prediction of High, Close, Low and Open for next x days.
 <img src="visualization/stock_prediction_EBAY.png"/>
 
+## GUI - using Python tkinter
+<img src="visualization/starting.png"/>
+
+<img src="visualization/home.png"/>
+
+<img src="visualization/stockList.png"/>
+
+<img src="visualization/search.png"/>
+
+<img src="visualization/viewGraph.png"/>
