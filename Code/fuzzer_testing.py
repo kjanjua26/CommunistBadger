@@ -1,3 +1,7 @@
+'''
+    CommunistBadger v1.0.0
+    This is stress testing code, Fuzzing technique, to test if the input data is valid. 
+'''
 from fuzzing.fuzzer import FuzzExecutor
 import glob
 import logging
